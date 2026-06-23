@@ -1,4 +1,4 @@
-import { Piano } from "./components/piano/piano"
+import { Piano } from "./piano"
 
 function App() {
 
