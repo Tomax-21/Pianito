@@ -1,8 +1,10 @@
 import type { piano_key_type } from "../piano_types";
 
 
-export function PianoKey({name, color}: piano_key_type) {
+export function PianoKey({name, color, active=false}: piano_key_type) {
     return (
-        <div>Test key blanceh {name} {color}</div>
+        <div className={`key ${color} ${active ? 'active' : ''}`}>
+            {name}
+        </div>
     )
 }

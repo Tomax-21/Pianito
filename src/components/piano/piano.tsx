@@ -9,6 +9,7 @@ export function Piano() {
             <PianoKey name="C1" color={piano_key_color.WHITE}/>
             <PianoKey name="C2" color={piano_key_color.WHITE}/>
             <PianoKey name="C3" color={piano_key_color.WHITE}/>
+            <PianoKey name="C4" color={piano_key_color.BLACK}/>
         </div>
     )
 }

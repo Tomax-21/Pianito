@@ -6,4 +6,5 @@ export enum piano_key_color {
 export type piano_key_type = {
     name : string,
     color : piano_key_color,
+    active?: boolean,
 }
