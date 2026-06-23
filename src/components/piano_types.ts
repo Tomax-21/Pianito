@@ -4,12 +4,12 @@ export enum piano_key_color {
 }
 
 export type piano_key_type = {
-    name : string,
+    name? : string,
     color : piano_key_color,
     active?: boolean,
 }
 
 export type pianoKeyContainerType = {
     name_white: string,
-    name_black?: string,
+    has_black?: boolean
 }
