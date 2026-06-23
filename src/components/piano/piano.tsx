@@ -1,10 +1,10 @@
-import { WhitePianoKey } from "./whitePianoKey";
+import { PianoKey } from "./pianoKey";
 
 export function Piano() {
     return (
         <div>Test piano
 
-            <WhitePianoKey/>
+            <PianoKey/>
         </div>
     )
 }
