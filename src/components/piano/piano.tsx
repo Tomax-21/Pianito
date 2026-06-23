@@ -1,15 +1,13 @@
-import { piano_key_color } from "../piano_types";
-import { PianoKey } from "./pianoKey";
-
 import "../../css/piano.css"
+import { PianoKeyContainer } from "./pianoKeyContainer";
 
 export function Piano() {
     return (
         <div className="piano">
-            <PianoKey name="C1" color={piano_key_color.WHITE}/>
-            <PianoKey name="C2" color={piano_key_color.WHITE}/>
-            <PianoKey name="C3" color={piano_key_color.WHITE}/>
-            <PianoKey name="C4" color={piano_key_color.BLACK}/>
+            <PianoKeyContainer name_white="C1" name_black="C#1"/>
+            <PianoKeyContainer name_white="D1" name_black="D#1"/>
+            <PianoKeyContainer name_white="E1"/>
+
         </div>
     )
 }

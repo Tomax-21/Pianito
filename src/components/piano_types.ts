@@ -8,3 +8,8 @@ export type piano_key_type = {
     color : piano_key_color,
     active?: boolean,
 }
+
+export type pianoKeyContainerType = {
+    name_white: string,
+    name_black?: string,
+}
