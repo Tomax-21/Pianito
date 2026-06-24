@@ -1,9 +1,10 @@
 import "../../css/piano.css"
+import { SoundPlayer } from "../sound_player"
 import { PianoOctave } from "./pianoOctave"
 
 export function Piano() {
     const handlePlayNote = (noteName: string) => {
-        console.log(noteName)
+        SoundPlayer(noteName)
     }
     return (
         <div className="piano">
