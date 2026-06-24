@@ -34,11 +34,15 @@ function App() {
   return (
     <>
     <div className="piano-partition-page">
-      <div className="partition-box">
+      <div className="top-box">
         <h2>Partition</h2>
+
+        <div className="partition-box">
         {/**<Partition notes_list={["C4", "D4", "Eb4", "F4", "G4", "G#4"]}/>*/}
         <Partition notes_list={random_note !== null ? [random_note] : []}/>
       </div>
+      </div>
+      
         
         <Piano onNotePlayed={handlePlayedNote}/>
       </div>
