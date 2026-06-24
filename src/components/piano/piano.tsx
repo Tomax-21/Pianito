@@ -1,5 +1,5 @@
 import "../../css/piano.css"
-import type {  PianoProps } from "../piano_types"
+import type {  PianoProps } from "./piano_types"
 import { PianoOctave } from "./pianoOctave"
 
 export function Piano({onNotePlayed}: PianoProps) {

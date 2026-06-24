@@ -1,6 +1,6 @@
 
 import "../../css/piano.css"
-import { piano_key_color, type pianoKeyContainerType } from "../piano_types"
+import { piano_key_color, type pianoKeyContainerType } from "./piano_types"
 import { PianoKey } from "./pianoKey"
 
 

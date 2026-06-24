@@ -1,10 +1,10 @@
 import { useState } from "react"
 import { Partition } from "./components/partition/partition"
 import { Piano } from "./components/piano/piano"
-import { get_random_note } from "./components/random"
-import { SoundPlayer } from "./components/sound_player"
+import { get_random_note } from "./utils/random"
+import { SoundPlayer } from "./components/piano/sound_player"
 
-
+//creer une methode qui permet de dire que G#4 = Ab4
 
 function App() {
 

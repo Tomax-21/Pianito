@@ -1,4 +1,4 @@
-import type { PianoKeyProps } from "../piano_types";
+import type { PianoKeyProps } from "./piano_types";
 
 
 

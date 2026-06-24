@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter } from "vexflow";
-import { classicNoteToVewflowNote } from "../note_conversion";
+import { classicNoteToVewflowNote } from "../../utils/note_conversion";
 
 export function Partition({notes_list}: {notes_list: Array<string>}) {
     const containerRef = useRef<HTMLDivElement>(null);
