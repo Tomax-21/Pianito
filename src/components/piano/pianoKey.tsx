@@ -1,9 +1,11 @@
-import type { piano_key_type } from "../piano_types";
+import type { piano_key_type, PianoKeyProps } from "../piano_types";
 
 
-export function PianoKey({name, color, active=false}: piano_key_type) {
+
+
+export function PianoKey({name, color, active=false, onClick}: PianoKeyProps) {
     return (
-        <button className={`key ${color} ${active ? 'active' : ''}`}>
+        <button onClick={onClick} className={`key ${color} ${active ? 'active' : ''}`}>
             <p>{name ?? ''}</p>
         </button>
     )

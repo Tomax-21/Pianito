@@ -8,6 +8,9 @@ export type piano_key_type = {
     color : piano_key_color,
     active?: boolean,
 }
+export type PianoKeyProps = piano_key_type & {
+    onClick?: () => void;
+}
 
 export type pianoKeyContainerType = {
     name_white: string,
