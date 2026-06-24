@@ -1,3 +1,5 @@
+/*sur un piano, il y a 52 touches donc fixer la taille de la touche a la taille de l'ecran /52 (prendre en compte margin+border)*/
+
 .piano {
     width: 100dvw;
     height: 30dvh;

@@ -1,17 +1,18 @@
 import "../../css/piano.css"
-import { PianoKeyContainer } from "./pianoKeyContainer";
+import { PianoOctave } from "./pianoOctave"
 
 export function Piano() {
     return (
         <div className="piano">
-            <PianoKeyContainer name_white="C1" has_black={true}/>
-            <PianoKeyContainer name_white="D1" has_black={true}/>
-            <PianoKeyContainer name_white="E1"/>
-            <PianoKeyContainer name_white="F1" has_black={true}/>
-            <PianoKeyContainer name_white="G1" has_black={true}/>
-            <PianoKeyContainer name_white="A1" has_black={true}/>
-            <PianoKeyContainer name_white="B1"/>
-            <PianoKeyContainer name_white="C2" has_black={true}/>
+            <PianoOctave octave_number={0} is_first_octave={true}/>
+            <PianoOctave octave_number={1}/>
+            <PianoOctave octave_number={2}/>
+            <PianoOctave octave_number={3}/>
+            <PianoOctave octave_number={4}/>
+            <PianoOctave octave_number={5}/>
+            <PianoOctave octave_number={6}/>
+            <PianoOctave octave_number={7}/>
+            <PianoOctave octave_number={8} is_last_octave={true}/>
 
 
 
