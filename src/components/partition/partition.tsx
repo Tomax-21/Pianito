@@ -18,7 +18,7 @@ export function Partition({notes_list}: {notes_list: Array<string>}) {
 
         // Création et formatage des notes à la volée
         const notes = notes_list.map((noteName) => {
-            const vfKey = `${noteName[0]}/4`; // Octave 4 par défaut
+            const vfKey = `${noteName[0]}/${noteName[-1] ?? 4}`; // Octave 4 par défaut
             const note = new StaveNote({ keys: [vfKey], duration: "q" });
             // Ajout du dièse ou bémol si présent
             if (noteName.includes("#")) note.addModifier(new Accidental("#"), 0);
