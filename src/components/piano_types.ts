@@ -15,10 +15,12 @@ export type PianoKeyProps = piano_key_type & {
 export type pianoKeyContainerType = {
     name_white: string,
     has_black?: boolean
+    onKeyClicked: (noteName:string) => void;
 }
 
 export type pianoOctaveType = {
     octave_number: number
     is_first_octave? : boolean
     is_last_octave?: boolean
+    onNoteTriggered: (noteName: string) => void
 }
