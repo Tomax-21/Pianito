@@ -20,5 +20,14 @@ export function getFrenchNoteName(technicalNote: string): string {
         return `${frenchName}#`
     }
     
-    return frenchName
+    return frenchName.toUpperCase()
+}
+
+export function vexflowNotetoClassicNote(note: string) {
+    /**
+     * c/4 => C4
+     * f#/4 => F#4
+    */
+   return note.toUpperCase().replaceAll("/", "")
+
 }
