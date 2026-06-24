@@ -20,20 +20,20 @@ export function get_random_note({
                 let possibilities = ['A', 'B']
                 return possibilities[random_number(0,1)]
             } else {
-                return "A/0"
+                return "A0"
             }
         } else if (note_range.includes("B")) {
-            return "B/0"
+            return "B0"
         } else {
             return null
         }
     } else if (octave == 8) {
         if (note_range.includes("C")) {
-            return 'C/8'
+            return 'C8'
         } else {
             return null
         }
     }
 
-    return `${note_range[random_number(0, note_range.length-1)]}/${octave}`
+    return `${note_range[random_number(0, note_range.length-1)]}${octave}`
 }
