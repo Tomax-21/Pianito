@@ -5,10 +5,19 @@ body {
     margin: 0;
     padding: 0;
 }
-
-.partition-box {
+.top-box {
     flex: 1;
     width: 100dvw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.partition-box {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
 }
 .piano-partition-page {
     display: flex;
