@@ -5,12 +5,14 @@ function App() {
 
   return (
     <>
-    <div className="partition-box">
-      <h2>Partition</h2>
-      <Partition/>
-    </div>
-      
-      <Piano/>
+    <div className="piano-partition-page">
+      <div className="partition-box">
+        <h2>Partition</h2>
+        <Partition notes_list={["C", "D", "Eb", "F", "G", "G#"]}/>
+      </div>
+        
+        <Piano/>
+      </div>
     </>
   )
 }

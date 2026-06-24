@@ -7,6 +7,11 @@ body {
 }
 
 .partition-box {
-    height: 60dvh;
+    flex: 1;
     width: 100dvw;
+}
+.piano-partition-page {
+    display: flex;
+    height: 100dvh;
+    flex-direction: column;
 }
