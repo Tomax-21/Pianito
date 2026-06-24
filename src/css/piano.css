@@ -1,0 +1,67 @@
+/*sur un piano, il y a 52 touches donc fixer la taille de la touche a la taille de l'ecran /52 (prendre en compte margin+border)*/
+
+.piano {
+    width: 100dvw;
+    height: 30dvh;
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    overflow: hidden; 
+    box-sizing: border-box;
+}
+.key-container {
+    position: relative; 
+    flex: 1;
+    max-width: 32px;
+    min-width: 0;
+    height: 100%;
+    margin: 0 1px;
+
+}
+.key {
+    border-radius: 0 0 4px 4px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    border: solid 1px #C4C4C4;
+
+}
+.key p {
+    margin: 0;
+    padding: 0;
+    user-select: none;
+}
+
+.key.white {
+    width: 100%;
+    height: 100%;
+    background-color: #EFEFEF;
+    color: #C4C4C4;
+}
+.key.black {
+    position: absolute;
+    top: 0;
+    right: -13px;
+    width: 26px;
+    height: 60%;
+    background-color: #616061;
+    color: #C7C7C7;
+
+    z-index: 10;
+}
+
+.key.white:hover {
+    background-color: #e3e6ff;
+}
+.key.black:hover {
+    background-color: #93a0a8;
+}
+
+.key.white:active {
+    background-color: #b5c2ff; /* Un bleu un peu plus foncé que le hover */
+}
+.key.black:active {
+    background-color: #7190a4;
+}
