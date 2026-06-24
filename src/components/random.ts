@@ -3,9 +3,16 @@ export function random_number(min: number, max: number) : number {
 }
 
 
-export function get_random_note(note_range: Array<string> = ['A', 'B', 'C', 'D', 'E', 'F', 'G'], octave_range: Array<number> = [0, 1, 2, 3, 4, 5, 6, 7, 8]):string|null {
+export function get_random_note({
+    note_range = ['A', 'B', 'C', 'D', 'E', 'F', 'G'], 
+    octave_range = [0, 1, 2, 3, 4, 5, 6, 7, 8]
+}: {
+    note_range?: Array<string>;
+    octave_range?: Array<number>;
+ }={} // sert a dire : l'object entier est optionnel
+):string|null {
 
-    let octave:number = octave_range[random_number(0, octave_range.length)]
+    let octave:number = octave_range[random_number(0, octave_range.length-1)]
 
     if (octave == 0) {
         if (note_range.includes("A")) {
@@ -28,5 +35,5 @@ export function get_random_note(note_range: Array<string> = ['A', 'B', 'C', 'D',
         }
     }
 
-    return `${note_range[random_number(0, note_range.length)]}/${octave}`
+    return `${note_range[random_number(0, note_range.length-1)]}/${octave}`
 }
