@@ -5,3 +5,8 @@ body {
     margin: 0;
     padding: 0;
 }
+
+.partition-box {
+    height: 60dvh;
+    width: 100dvw;
+}
