@@ -3,23 +3,22 @@ import { Partition } from "./components/partition/partition"
 import { Piano } from "./components/piano/piano"
 import { get_random_note } from "./components/random"
 import { SoundPlayer } from "./components/sound_player"
-import { vexflowNotetoClassicNote } from "./components/note_conversion"
 
 
 
 function App() {
 
-  const [random_note, set_random_note] = useState<string|null>(()=>get_random_note({octave_range:[4]})) //fct fleché permet d'executer que au lancement
+  const [random_note, set_random_note] = useState<string|null>(()=>get_random_note({octave_range:[4, 5]})) //fct fleché permet d'executer que au lancement
 
   const handlePlayedNote = (noteName: string) => {
     SoundPlayer(noteName)
     if (!random_note) return
 
-    console.log(noteName, random_note)
-    if (noteName.toUpperCase() === vexflowNotetoClassicNote(random_note)) {
+    console.log("note joué, random note", noteName, random_note)
+    if (noteName.toUpperCase() === random_note.toUpperCase()) {
       let new_note: string|null = ''
       do {
-        new_note = get_random_note({octave_range : [4]})
+        new_note = get_random_note({octave_range : [4, 5]})
       } while (new_note === random_note || new_note===null)
       
       set_random_note(new_note)
