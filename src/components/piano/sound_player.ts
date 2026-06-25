@@ -3,7 +3,9 @@ import * as Tone from "tone";
 let synth: Tone.Synth | null = null;
 
 export function init_sound_player_synth() {
-    synth = new Tone.Synth().toDestination()
+    if (!synth){
+        synth = new Tone.Synth().toDestination()
+    }
 }
 
 export async function SoundPlayer(noteName:string, duration:string = "8n") {
