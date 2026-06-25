@@ -69,7 +69,7 @@ export default function NoteTrainer() {
       }
 
       const handleHelpRequested = () => {
-        setShowHelp(true)
+        setShowHelp(!showHelp)
     }
     
     return (
