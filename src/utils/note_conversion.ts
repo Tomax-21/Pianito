@@ -38,5 +38,5 @@ export function classicNoteToVewflowNote(note: string) {
      * C => C/4
      */
 
-    return `${note.slice(0, -1)}/${note.slice(-1) ?? 4}`;
+    return `${note.toUpperCase().slice(0, -1)}/${note.toUpperCase().slice(-1) ?? 4}`;
 }
