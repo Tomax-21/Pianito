@@ -1,3 +1,5 @@
+import { note_status } from "../components/piano/piano_types";
+
 export const note = {
     "A": "LA",
     "B": "SI",
@@ -39,4 +41,18 @@ export function classicNoteToVewflowNote(note: string) {
      */
 
     return `${note.toUpperCase().slice(0, -1)}/${note.toUpperCase().slice(-1) ?? 4}`;
+}
+
+export function prepareNotesForTrainer(notes: Array<string>) {
+    /**
+     * [["C4"], ["D4"] =>
+     * [["C4", note_status.NEUTRE], ["D4", note_status.NEUTRE]]
+     */
+
+    let final_liste = []
+    for (const note of notes) {
+        final_liste.push([note,note_status.NEUTRE])
+    }
+
+    return final_liste
 }
