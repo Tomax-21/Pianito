@@ -7,16 +7,22 @@ export function Piano({onNotePlayed}: PianoProps) {
     
     return (
         <div className="piano">
-            {octaves.map((num) => (
-                <PianoOctave
-                    key={num}
-                    octave_number={num}
-                    is_first_octave={num===0}
-                    is_last_octave={num===8}
-                    onNoteTriggered={onNotePlayed}
-                />
-            ))}
+            <div className="piano-frame ">
 
+            </div>
+
+            <div className="piano-keyboard">
+                {octaves.map((num) => (
+                    <PianoOctave
+                        key={num}
+                        octave_number={num}
+                        is_first_octave={num===0}
+                        is_last_octave={num===8}
+                        onNoteTriggered={onNotePlayed}
+                    />
+                ))}
+            </div>
         </div>
+       
     )
 }
