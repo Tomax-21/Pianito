@@ -3,6 +3,7 @@ import { Partition } from "./components/partition/partition"
 import { Piano } from "./components/piano/piano"
 import { get_random_note } from "./utils/random"
 import { SoundPlayer } from "./components/piano/sound_player"
+import { areEnharmonic } from "./utils/note_comparison"
 
 //creer une methode qui permet de dire que G#4 = Ab4
 
@@ -15,7 +16,7 @@ function App() {
     if (!random_note) return
 
     console.log("note joué, random note", noteName, random_note)
-    if (noteName.toUpperCase() === random_note.toUpperCase()) {
+    if (areEnharmonic(noteName.toUpperCase(), random_note.toUpperCase())) {
       let new_note: string|null = ''
       do {
         new_note = get_random_note({octave_range : [4, 5]})
