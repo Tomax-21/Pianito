@@ -23,6 +23,10 @@ export default function NoteTrainer() {
           
         }
       }
+
+      const handleHelpRequested = () => {
+        alert(`Note a trouevr ${random_note}`);
+    }
     
     return (
          <div className="piano-partition-page">
@@ -36,7 +40,7 @@ export default function NoteTrainer() {
             </div>
             
                 
-            <Piano onNotePlayed={handlePlayedNote}/>
+            <Piano onNotePlayed={handlePlayedNote} onHelpRequested={handleHelpRequested}/>
       </div>
     );
 }

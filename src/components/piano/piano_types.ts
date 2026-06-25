@@ -27,4 +27,9 @@ export type pianoOctaveType = {
 
 export type PianoProps = {
     onNotePlayed: (noteName: string) => void
+    onHelpRequested: () => void
+}
+
+export type PianoFrameProps = {
+    onHelpButtonClick: () => void
 }
