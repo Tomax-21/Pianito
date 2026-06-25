@@ -24,3 +24,7 @@ export type pianoOctaveType = {
     is_last_octave?: boolean
     onNoteTriggered: (noteName: string) => void
 }
+
+export type PianoProps = {
+    onNotePlayed: (noteName: string) => void
+}

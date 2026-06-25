@@ -1,4 +1,4 @@
-import type { pianoOctaveType } from "../piano_types";
+import type { pianoOctaveType } from "./piano_types";
 import { PianoKeyContainer } from "./pianoKeyContainer";
 
 
