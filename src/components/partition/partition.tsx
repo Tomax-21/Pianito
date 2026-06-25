@@ -1,8 +1,9 @@
 import { useEffect, useRef } from "react";
 import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter } from "vexflow";
 import { classicNoteToVewflowNote } from "../../utils/note_conversion";
+import type { note_status } from "../piano/piano_types";
 
-export function Partition({notes_list}: {notes_list: Array<string>}) {
+export function Partition({notes_list, status}: {notes_list: Array<string>, status:note_status}) {
     const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (!containerRef.current) return;
@@ -17,11 +18,19 @@ export function Partition({notes_list}: {notes_list: Array<string>}) {
         const stave = new Stave(0, 0, 310);
         stave.addClef("treble").setContext(context).draw();
 
+        let noteColor = "black";
+        console.log(status)
+        if (status === "correct") noteColor = "#00c251"; // Un joli vert
+        if (status === "wrong") noteColor = "#c20000";   // Un joli rouge
+
         // Création et formatage des notes à la volée
         const notes = notes_list.map((noteName) => {
             const vfKey = classicNoteToVewflowNote(noteName); // Octave 4 par défaut
             console.log("note affiché", vfKey)
             const note = new StaveNote({ keys: [vfKey], duration: "q" });
+
+            note.setStyle({ fillStyle: noteColor, strokeStyle: noteColor });
+
             // Ajout du dièse ou bémol si présent
             if (noteName.includes("#")) note.addModifier(new Accidental("#"), 0);
             if (noteName.includes("b")) note.addModifier(new Accidental("b"), 0);
@@ -40,6 +49,6 @@ export function Partition({notes_list}: {notes_list: Array<string>}) {
         return () => {
             if (containerRef.current) containerRef.current.innerHTML = "";
         };
-    }, [notes_list]);
+    }, [notes_list, status]);
     return <div ref={containerRef}></div>;
 }

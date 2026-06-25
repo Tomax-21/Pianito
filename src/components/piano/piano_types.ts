@@ -2,6 +2,11 @@ export enum piano_key_color {
  WHITE = "white",
  BLACK = "black",
 }
+export enum note_status {
+    WRONG = "wrong",
+    NEUTRE = "neutre",
+    CORRECT = "correct",
+}
 
 export type piano_key_type = {
     name? : string,
