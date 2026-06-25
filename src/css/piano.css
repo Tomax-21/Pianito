@@ -17,7 +17,7 @@
     align-items: center;
 }
 .piano-frame.listen-music {
-    border-bottom:solid 2px rgb(255, 181, 181)
+    border-bottom:solid 2px #ffb5b5
 }
 .piano .icon {
     color: #EFEFEF;
@@ -93,6 +93,13 @@
 .key.white:active {
     background-color: #b5c2ff; /* Un bleu un peu plus foncé que le hover */
 }
+.key.white.active {
+    background-color: #ffb5b5;
+}
+
 .key.black:active {
     background-color: #7190a4;
+}
+.key.black.active {
+    background-color: #b88282;
 }

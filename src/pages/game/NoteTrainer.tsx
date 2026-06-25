@@ -8,9 +8,13 @@ import { Piano } from "../../components/piano/piano"
 export default function NoteTrainer() {
     
       const [random_note, set_random_note] = useState<string|null>(()=>get_random_note({octave_range:[4, 5]})) //fct fleché permet d'executer que au lancement
-    
+      const [showHelp, setShowHelp] = useState<boolean>(false)
+
+
       const handlePlayedNote = (noteName: string) => {
         SoundPlayer(noteName)
+        setShowHelp(false)
+
         if (!random_note) return
         //console.log("note joué, random note", noteName, random_note)
         if (areEnharmonic(noteName.toUpperCase(), random_note.toUpperCase())) {
@@ -25,7 +29,7 @@ export default function NoteTrainer() {
       }
 
       const handleHelpRequested = () => {
-        alert(`Note a trouevr ${random_note}`);
+        setShowHelp(true)
     }
     
     return (
@@ -40,7 +44,11 @@ export default function NoteTrainer() {
             </div>
             
                 
-            <Piano onNotePlayed={handlePlayedNote} onHelpRequested={handleHelpRequested}/>
+            <Piano 
+                onNotePlayed={handlePlayedNote} 
+                onHelpRequested={handleHelpRequested}
+                target_note={showHelp ? random_note : null}
+            />
       </div>
     );
 }
