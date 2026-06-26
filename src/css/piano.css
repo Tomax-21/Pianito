@@ -15,6 +15,7 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+    gap: 16px;
 }
 .piano-frame.listen-music {
     border-bottom:solid 2px #ffb5b5
