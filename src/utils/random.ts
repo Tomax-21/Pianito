@@ -37,3 +37,29 @@ export function get_random_note({
 
     return `${note_range[random_number(0, note_range.length-1)]}${octave}`
 }
+
+export function get_multiple_random_note({
+    note_range = ['A', 'B', 'C', 'D', 'E', 'F', 'G'], 
+    octave_range = [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    nb_note
+}: {
+    note_range?: Array<string>;
+    octave_range?: Array<number>;
+    nb_note:number
+}): Array<string> {
+
+    if (nb_note ===0) return []
+
+    let notes: Array<string> = []
+
+    for (let i = 0; i<nb_note;i++) {
+        
+        const randomNote = get_random_note({ note_range: note_range, octave_range: octave_range })
+        
+        if (randomNote) {
+            notes.push(randomNote)
+        }    
+    }
+
+    return notes
+}

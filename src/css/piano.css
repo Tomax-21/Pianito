@@ -1,6 +1,34 @@
 /*sur un piano, il y a 52 touches donc fixer la taille de la touche a la taille de l'ecran /52 (prendre en compte margin+border)*/
 
 .piano {
+    height: 38dvh;
+}
+.piano-frame {
+    height: 8dvh;
+    width: 100%;
+    background-color: #222222;
+    border: solid 1px #C4C4C4;
+    border-bottom:solid 2px #b5c2ff ;
+    border-radius: 4px 4px 0 0;
+    box-sizing: border-box;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.piano-frame.listen-music {
+    border-bottom:solid 2px #ffb5b5
+}
+.piano .icon {
+    color: #EFEFEF;
+    margin: 0 4px;
+    cursor: pointer;
+
+}
+.piano .icon.help-icon {
+    margin-right: 32px;
+}
+.piano-keyboard {
     width: 100dvw;
     height: 30dvh;
     display: flex;
@@ -9,6 +37,7 @@
     overflow: hidden; 
     box-sizing: border-box;
 }
+
 .key-container {
     position: relative; 
     flex: 1;
@@ -26,6 +55,7 @@
     justify-content: end;
     align-items: center;
     border: solid 1px #C4C4C4;
+    border-top: none;
 
 }
 .key p {
@@ -46,22 +76,30 @@
     right: -13px;
     width: 26px;
     height: 60%;
-    background-color: #616061;
+    background-color: #222222;
     color: #C7C7C7;
-
     z-index: 10;
+    clip-path: polygon(0 0, 100% 0, 90% 85%, 100% 100%, 0 100%, 10% 85%);
+
 }
 
 .key.white:hover {
     background-color: #e3e6ff;
 }
 .key.black:hover {
-    background-color: #93a0a8;
+    background-color: #37474f;
 }
 
 .key.white:active {
     background-color: #b5c2ff; /* Un bleu un peu plus foncé que le hover */
 }
+.key.white.active {
+    background-color: #ffb5b5;
+}
+
 .key.black:active {
     background-color: #7190a4;
+}
+.key.black.active {
+    background-color: #b88282;
 }

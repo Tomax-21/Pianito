@@ -1,19 +1,29 @@
 import "../../css/piano.css"
 import type {  PianoProps } from "./piano_types"
+import { PianoFrame } from "./pianoFrame"
 import { PianoOctave } from "./pianoOctave"
 
-export function Piano({onNotePlayed}: PianoProps) {
+export function Piano({onNotePlayed, onHelpRequested, target_note}: PianoProps) {
+    const octaves = [0,1,2,3,4,5,6,7,8]
+    
     return (
         <div className="piano">
-            <PianoOctave octave_number={0} is_first_octave={true} onNoteTriggered={onNotePlayed}/>
-            <PianoOctave octave_number={1} onNoteTriggered={onNotePlayed}/>
-            <PianoOctave octave_number={2} onNoteTriggered={onNotePlayed}/>
-            <PianoOctave octave_number={3} onNoteTriggered={onNotePlayed}/>
-            <PianoOctave octave_number={4} onNoteTriggered={onNotePlayed}/>
-            <PianoOctave octave_number={5} onNoteTriggered={onNotePlayed}/>
-            <PianoOctave octave_number={6} onNoteTriggered={onNotePlayed}/>
-            <PianoOctave octave_number={7} onNoteTriggered={onNotePlayed}/>
-            <PianoOctave octave_number={8} is_last_octave={true} onNoteTriggered={onNotePlayed}/>
+
+            <PianoFrame onHelpButtonClick={onHelpRequested}/>
+
+            <div className="piano-keyboard">
+                {octaves.map((num) => (
+                    <PianoOctave
+                        key={num}
+                        octave_number={num}
+                        is_first_octave={num===0}
+                        is_last_octave={num===8}
+                        onNoteTriggered={onNotePlayed}
+                        target_note={target_note}
+                    />
+                ))}
+            </div>
         </div>
+       
     )
 }
