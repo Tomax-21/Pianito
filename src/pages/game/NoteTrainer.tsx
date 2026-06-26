@@ -63,7 +63,12 @@ export default function NoteTrainer() {
             //on creer une deuxieme fois car on manipule la meme liste sinon donc ca pose probleme dans l'actualisation ??
             set_liste_note((recent_list => {
               const list_copy = [...recent_list]
-              list_copy[currentIndex][1] = note_status.NEUTRE
+
+              if (list_copy[currentIndex][1] === note_status.WRONG) {
+                // on verifie si la bonne touche n'a pas été trouvée entre temps (dans les 400ms de l'animation)
+                list_copy[currentIndex][1] = note_status.NEUTRE
+
+              }
 
               return list_copy
             }))
