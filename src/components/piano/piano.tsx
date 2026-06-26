@@ -3,13 +3,13 @@ import type {  PianoProps } from "./piano_types"
 import { PianoFrame } from "./pianoFrame"
 import { PianoOctave } from "./pianoOctave"
 
-export function Piano({onNotePlayed, onHelpRequested, target_note}: PianoProps) {
+export function Piano({onNotePlayed, onHelpRequested, onRefreshRequested, target_note}: PianoProps) {
     const octaves = [0,1,2,3,4,5,6,7,8]
     
     return (
         <div className="piano">
 
-            <PianoFrame onHelpButtonClick={onHelpRequested}/>
+            <PianoFrame onHelpButtonClick={onHelpRequested} onRefreshButtonClick={onRefreshRequested}/>
 
             <div className="piano-keyboard">
                 {octaves.map((num) => (
