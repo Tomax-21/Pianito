@@ -83,6 +83,11 @@ export default function NoteTrainer() {
     const handleRefreshRequested = () => {
       generateNewList()
     }
+
+    const handleUseAudioPitchRequested = () => {
+      console.log("micro")
+    }
+
     
     return (
          <div className="piano-partition-page">
@@ -102,6 +107,7 @@ export default function NoteTrainer() {
                 onNotePlayed={handlePlayedNote} 
                 onHelpRequested={handleHelpRequested}
                 onRefreshRequested={handleRefreshRequested}
+                onUseAudioPitchRequested={handleUseAudioPitchRequested}
                 target_note={showHelp ? liste_note[currentIndex][0] : null}
             />
       </div>

@@ -39,9 +39,11 @@ export type PianoProps = {
     onNotePlayed: (noteName: string) => void
     onHelpRequested: () => void
     onRefreshRequested: () => void
+    onUseAudioPitchRequested: () => void
 }
 
 export type PianoFrameProps = {
     onHelpButtonClick: () => void
     onRefreshButtonClick: () => void
+    onMicButtonClick: () => void
 }
