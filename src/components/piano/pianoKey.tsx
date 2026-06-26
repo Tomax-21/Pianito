@@ -6,7 +6,6 @@ import { piano_key_color, type PianoKeyProps } from "./piano_types";
 
 export function PianoKey({name, color,active=false, target_note, onClick}: PianoKeyProps) {
     
-    console.log(name, target_note)
     if (name && target_note) {
         active = areEnharmonic(capitalize(name), capitalize(target_note))
     }

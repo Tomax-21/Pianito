@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { SoundPlayer } from "../../components/piano/sound_player"
-import { areEnharmonic } from "../../utils/note_comparison"
+import { areEnharmonic, capitalize } from "../../utils/note_comparison"
 import { get_multiple_random_note } from "../../utils/random"
 import { Partition } from "../../components/partition/partition"
 import { Piano } from "../../components/piano/piano"
@@ -12,7 +12,7 @@ const nb_note = 4
 
 export default function NoteTrainer() {
 
-      const [liste_note, set_liste_note] = useState<Array<Array<string>>>(()=> prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[4, 5]}))) //fct fleché permet d'executer que au lancement
+      const [liste_note, set_liste_note] = useState<Array<Array<string>>>(()=> prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[4, 5], enable_bemol: true, enable_diese: true}))) //fct fleché permet d'executer que au lancement
       const [currentIndex, setCurrentIndex] = useState<number>(0)
 
       const [showHelp, setShowHelp] = useState<boolean>(false)
@@ -26,8 +26,8 @@ export default function NoteTrainer() {
 
         const templist = [...liste_note]
 
-        //console.log("note joué, random note", noteName, random_note)
-        if (areEnharmonic(noteName.toUpperCase(), liste_note[currentIndex][0].toUpperCase())) {
+        console.log("note joué, random note", noteName,  liste_note[currentIndex][0])
+        if (areEnharmonic(capitalize(noteName), capitalize(liste_note[currentIndex][0]))) {
           
           templist[currentIndex][1] = note_status.CORRECT
 
@@ -39,7 +39,7 @@ export default function NoteTrainer() {
             setTimeout(() => {
               let new_notes: Array<Array<string>>
               
-              new_notes = prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[4, 5]}))
+              new_notes = prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[4, 5], enable_bemol: true, enable_diese: true}))
               
               set_liste_note(new_notes)
               setCurrentIndex(0)
