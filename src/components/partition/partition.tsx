@@ -1,9 +1,16 @@
 import { useEffect, useRef } from "react";
 import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter } from "vexflow";
 import { classicNoteToVewflowNote } from "../../utils/note_conversion";
-import type { note_status } from "../piano/piano_types";
 
-export function Partition({notes_list, status}: {notes_list: Array<string>, status:note_status}) {
+
+export const couleur: Record<string, string> = {
+    "neutre": "black",
+    "correct": "#00c251",
+    "wrong": "#c20000",
+}
+
+
+export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
     const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (!containerRef.current) return;
@@ -18,18 +25,17 @@ export function Partition({notes_list, status}: {notes_list: Array<string>, stat
         const stave = new Stave(0, 0, 310);
         stave.addClef("treble").setContext(context).draw();
 
-        let noteColor = "black";
-        console.log(status)
-        if (status === "correct") noteColor = "#00c251"; // Un joli vert
-        if (status === "wrong") noteColor = "#c20000";   // Un joli rouge
-
         // Création et formatage des notes à la volée
-        const notes = notes_list.map((noteName) => {
-            const vfKey = classicNoteToVewflowNote(noteName); // Octave 4 par défaut
-            console.log("note affiché", vfKey)
-            const note = new StaveNote({ keys: [vfKey], duration: "q" });
+        const notes = notes_list.map((note_) => {
+            const noteName:string = note_[0]
+            const status:string = note_[1] || "neutre"
 
-            note.setStyle({ fillStyle: noteColor, strokeStyle: noteColor });
+            const vfKey = classicNoteToVewflowNote(noteName); // Octave 4 par défaut
+            //console.log("note affiché", vfKey)
+            const note = new StaveNote({ keys: [vfKey], duration: "q" });
+            console.log("bojnour")
+            
+            note.setStyle({ fillStyle: couleur[status], strokeStyle: couleur[status] });
 
             // Ajout du dièse ou bémol si présent
             if (noteName.includes("#")) note.addModifier(new Accidental("#"), 0);
@@ -49,6 +55,6 @@ export function Partition({notes_list, status}: {notes_list: Array<string>, stat
         return () => {
             if (containerRef.current) containerRef.current.innerHTML = "";
         };
-    }, [notes_list, status]);
+    }, [notes_list]);
     return <div ref={containerRef}></div>;
 }
