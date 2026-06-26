@@ -17,6 +17,14 @@ export default function NoteTrainer() {
 
       const [showHelp, setShowHelp] = useState<boolean>(false)
 
+      function generateNewList() {
+        let new_notes: Array<Array<string>>
+        new_notes = prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[4, 5], enable_bemol: true, enable_diese: true}))
+              
+        set_liste_note(new_notes)
+        setCurrentIndex(0)
+      }
+
 
       const handlePlayedNote = (noteName: string) => {
         SoundPlayer(noteName)
@@ -37,12 +45,7 @@ export default function NoteTrainer() {
           
           if (currentIndex === liste_note.length-1) {
             setTimeout(() => {
-              let new_notes: Array<Array<string>>
-              
-              new_notes = prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[4, 5], enable_bemol: true, enable_diese: true}))
-              
-              set_liste_note(new_notes)
-              setCurrentIndex(0)
+              generateNewList()
 
               //liste_note[currentIndex][1] = note_status.NEUTRE
 
@@ -73,7 +76,7 @@ export default function NoteTrainer() {
     }
 
     const handleRefreshRequested = () => {
-      console.log("refresh")
+      generateNewList()
     }
     
     return (
