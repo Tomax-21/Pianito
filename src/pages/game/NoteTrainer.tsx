@@ -71,6 +71,10 @@ export default function NoteTrainer() {
       const handleHelpRequested = () => {
         setShowHelp(!showHelp)
     }
+
+    const handleRefreshRequested = () => {
+      console.log("refresh")
+    }
     
     return (
          <div className="piano-partition-page">
@@ -89,6 +93,7 @@ export default function NoteTrainer() {
             <Piano 
                 onNotePlayed={handlePlayedNote} 
                 onHelpRequested={handleHelpRequested}
+                onRefreshRequested={handleRefreshRequested}
                 target_note={showHelp ? liste_note[currentIndex][0] : null}
             />
       </div>
