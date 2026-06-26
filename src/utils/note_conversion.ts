@@ -1,4 +1,5 @@
 import { note_status } from "../components/piano/piano_types";
+import { capitalize } from "./note_comparison";
 
 export const note = {
     "A": "LA",
@@ -29,8 +30,9 @@ export function vexflowNoteToClassicNote(note: string) {
     /**
      * c/4 => C4
      * f#/4 => F#4
+     * fb/5 => FB4
     */
-   return note.toUpperCase().replaceAll("/", "")
+   return capitalize(note).replaceAll("/", "")
 
 }
 export function classicNoteToVewflowNote(note: string) {
@@ -40,7 +42,7 @@ export function classicNoteToVewflowNote(note: string) {
      * C => C/4
      */
 
-    return `${note.toUpperCase().slice(0, -1)}/${note.toUpperCase().slice(-1) ?? 4}`;
+    return `${capitalize(note).slice(0, -1)}/${capitalize(note).slice(-1) ?? 4}`;
 }
 
 export function prepareNotesForTrainer(notes: Array<string>) {

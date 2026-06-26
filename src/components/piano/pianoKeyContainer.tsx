@@ -13,7 +13,7 @@ export function PianoKeyContainer({name_white, has_black=false, target_note, onK
             <PianoKey name={name_white} color={piano_key_color.WHITE} target_note={target_note} onClick={() => onKeyClicked(name_white)}/>
 
             {has_black && (
-                <PianoKey color={piano_key_color.BLACK} target_note={target_note} onClick={() => onKeyClicked(name_black)}/>
+                <PianoKey name={name_black} color={piano_key_color.BLACK} target_note={target_note} onClick={() => onKeyClicked(name_black)}/>
             )}
         </div>
     )

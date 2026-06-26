@@ -7,17 +7,32 @@ const ENHARMONIC_MAP: Record<string, string> = {
     "F#": "Gb", "Gb": "F#",
     "G#": "Ab", "Ab": "G#",
     "A#": "Bb", "Bb": "A#",
+    "E#": "F",  "F" : "E#",
+    "Fb": "E",  "E" : "Fb",
+    "B#": "C",  "C" : "B#",
+    "Cb": "B",  "B" : "Cb"
 };
 
-export function areEnharmonic(note1:string, note2:string) {
+export function capitalize(text:string) {
+  if (!text) return ""; // Sécurité si la chaîne est vide
+  
+  return text.charAt(0).toUpperCase() + text.slice(1).toLowerCase();
+}
+
+export function areEnharmonic(note1:string, note2:string) {    
+
     if (!isNoteSyntaxClassic(note1) || !isNoteSyntaxClassic(note2)) {
         if (isNoteSyntaxVexFlow(note1) && isNoteSyntaxVexFlow(note2)) {
-            note1 = vexflowNoteToClassicNote(note1).toUpperCase()
-            note2 = vexflowNoteToClassicNote(note2).toUpperCase()
+            note1 = capitalize(vexflowNoteToClassicNote(note1))
+            note2 = capitalize(vexflowNoteToClassicNote(note2))
         }else {
             return false
         }
     }
+
+    note1 = capitalize(note1)
+    note2 = capitalize(note2)
+
 
     if (note1 === note2) return true
 
@@ -27,7 +42,13 @@ export function areEnharmonic(note1:string, note2:string) {
     const nameB = note2.slice(0,-1)
     const octaveB = note2.slice(-1)
 
-    if (octaveA !== octaveB) return false
+
+    if (octaveA !== octaveB) { //le cas particulier valide si 2 octaves sont differents
+        if (!(nameA === "B#" && nameB ==="C") && !(nameB === "B#" && nameA==="C") ) {
+            return false
+        }
+    }
+
 
     return ENHARMONIC_MAP[nameA] === nameB
 }
