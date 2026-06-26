@@ -50,7 +50,7 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
         const voice = new Voice().setStrict(false).addTickables(notes);
 
         // 6. Alignement automatique des notes sur la portée et dessin
-        new Formatter().joinVoices([voice]).format([voice], 230);
+        new Formatter().joinVoices([voice]).format([voice], 350);
         voice.draw(context, stave);
 
         // Nettoyage au démontage
