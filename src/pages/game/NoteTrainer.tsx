@@ -12,6 +12,8 @@ const nb_note = 4
 
 export default function NoteTrainer() {
 
+      const [useMic, setUseMic] = useState<boolean>(false)
+
       const [liste_note, set_liste_note] = useState<Array<Array<string>>>(()=> prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[4, 5], enable_bemol: true, enable_diese: true}))) //fct fleché permet d'executer que au lancement
       const [currentIndex, setCurrentIndex] = useState<number>(0)
 
@@ -85,7 +87,8 @@ export default function NoteTrainer() {
     }
 
     const handleUseAudioPitchRequested = () => {
-      console.log("micro")
+      setUseMic(!useMic)
+      console.log("utilisation du micro", useMic)
     }
 
     
