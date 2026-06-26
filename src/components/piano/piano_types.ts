@@ -35,6 +35,7 @@ export type pianoOctaveType = {
 
 export type PianoProps = {
     target_note?:string|null
+    isMicroUsed:boolean
 
     onNotePlayed: (noteName: string) => void
     onHelpRequested: () => void
@@ -43,6 +44,7 @@ export type PianoProps = {
 }
 
 export type PianoFrameProps = {
+    isMicroUsed: boolean
     onHelpButtonClick: () => void
     onRefreshButtonClick: () => void
     onMicButtonClick: () => void

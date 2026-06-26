@@ -88,8 +88,10 @@ export default function NoteTrainer() {
 
     const handleUseAudioPitchRequested = () => {
       setUseMic(!useMic)
-      console.log("utilisation du micro", useMic)
     }
+    
+    console.log("utilisation du micro", useMic)
+
 
     
     return (
@@ -111,6 +113,7 @@ export default function NoteTrainer() {
                 onHelpRequested={handleHelpRequested}
                 onRefreshRequested={handleRefreshRequested}
                 onUseAudioPitchRequested={handleUseAudioPitchRequested}
+                isMicroUsed={useMic}
                 target_note={showHelp ? liste_note[currentIndex][0] : null}
             />
       </div>
