@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter } from "vexflow";
+import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter, BarlineType } from "vexflow";
 import { classicNoteToVewflowNote } from "../../utils/note_conversion";
 
 
@@ -18,11 +18,13 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
         containerRef.current.innerHTML = "";
 
         const renderer = new Renderer(containerRef.current, Renderer.Backends.SVG);
-        renderer.resize(330, 110);
+        renderer.resize(430, 110);
         const context = renderer.getContext();
 
         // Dessin de la portée (x, y, largeur) avec la clé de Sol
-        const stave = new Stave(0, 0, 310);
+        
+        const stave = new Stave(0, 0, 410);
+        stave.setEndBarType(BarlineType.END);
         stave.addClef("treble").setContext(context).draw();
 
         // Création et formatage des notes à la volée
@@ -33,7 +35,7 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
             const vfKey = classicNoteToVewflowNote(noteName); // Octave 4 par défaut
             //console.log("note affiché", vfKey)
             const note = new StaveNote({ keys: [vfKey], duration: "q" });
-            console.log("bojnour")
+            //console.log("bojnour")
             
             note.setStyle({ fillStyle: couleur[status], strokeStyle: couleur[status] });
 
