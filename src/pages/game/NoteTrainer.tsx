@@ -6,6 +6,7 @@ import { Partition } from "../../components/partition/partition"
 import { Piano } from "../../components/piano/piano"
 import { note_status } from "../../components/piano/piano_types"
 import { prepareNotesForTrainer } from "../../utils/note_conversion"
+import { useAudioPitch } from "../../utils/hooks/useAudioPitch"
 
 
 const nb_note = 4
@@ -89,8 +90,8 @@ export default function NoteTrainer() {
     const handleUseAudioPitchRequested = () => {
       setUseMic(!useMic)
     }
-    
-    console.log("utilisation du micro", useMic)
+
+    useAudioPitch(useMic)
 
 
     
