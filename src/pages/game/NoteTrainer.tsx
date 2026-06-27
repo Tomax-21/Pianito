@@ -8,7 +8,7 @@ import { note_status } from "../../components/piano/piano_types"
 import { prepareNotesForTrainer } from "../../utils/note_conversion"
 
 
-const nb_note = 6
+const nb_note = 1
 
 export default function NoteTrainer() {
 

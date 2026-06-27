@@ -24,14 +24,15 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
         // Dessin de la portée (x, y, largeur) avec la clé de Sol
         const trebleStave = new Stave(0, 0, 410);
         trebleStave.setEndBarType(BarlineType.END);
-        trebleStave.addClef("treble").setContext(context).draw();
 
         const bassStave = new Stave(0, 100, 400)
         bassStave.setEndBarType(BarlineType.END)
-        bassStave.addClef("bass").setContext(context).draw()
 
         const trebleNotes: (StaveNote | GhostNote)[] = []
         const bassNotes: (StaveNote | GhostNote)[] = []
+
+        let hasRealNoteInTrebleNotesList:boolean = false
+        let hasRealNoteInBassNotesList:boolean = false
 
         // Création et formatage des notes à la volée
         notes_list.map((note_) => {
@@ -56,12 +57,13 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
             if (isTrebleClef) {
                 trebleNotes.push(note);
                 bassNotes.push(new GhostNote({ duration: "q" }));
+                hasRealNoteInTrebleNotesList = true
 
             } else {
                 bassNotes.push(note);
                 // On met une note invisible (GhostNote) en haut pour maintenir l'alignement horizontal
                 trebleNotes.push(new GhostNote({ duration: "q" }));
-
+                hasRealNoteInBassNotesList = true
             }
 
             
@@ -78,8 +80,15 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
             .joinVoices([bassVoice])
             .format([trebleVoice, bassVoice], 350);
         
-        trebleVoice.draw(context, trebleStave);
-        bassVoice.draw(context, bassStave);
+        if (hasRealNoteInTrebleNotesList) {
+            trebleStave.addClef("treble").setContext(context).draw();
+            trebleVoice.draw(context, trebleStave)
+        } 
+        if (hasRealNoteInBassNotesList) {
+            bassStave.addClef("bass").setContext(context).draw()
+            bassVoice.draw(context, bassStave)
+
+        }
 
         // Nettoyage au démontage
         return () => {
