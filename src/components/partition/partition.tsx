@@ -18,14 +18,18 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
         containerRef.current.innerHTML = "";
 
         const renderer = new Renderer(containerRef.current, Renderer.Backends.SVG);
-        renderer.resize(430, 110);
+        renderer.resize(430, 220);
         const context = renderer.getContext();
 
         // Dessin de la portée (x, y, largeur) avec la clé de Sol
-        
-        const stave = new Stave(0, 0, 410);
-        stave.setEndBarType(BarlineType.END);
-        stave.addClef("treble").setContext(context).draw();
+        const trebleStave = new Stave(0, 0, 410);
+        trebleStave.setEndBarType(BarlineType.END);
+        trebleStave.addClef("treble").setContext(context).draw();
+
+        const bassStave = new Stave(0, 100, 400)
+        bassStave.setEndBarType(BarlineType.END)
+        bassStave.addClef("bass").setContext(context).draw()
+
 
         // Création et formatage des notes à la volée
         const notes = notes_list.map((note_) => {
@@ -51,7 +55,7 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
 
         // 6. Alignement automatique des notes sur la portée et dessin
         new Formatter().joinVoices([voice]).format([voice], 350);
-        voice.draw(context, stave);
+        voice.draw(context, trebleStave);
 
         // Nettoyage au démontage
         return () => {
