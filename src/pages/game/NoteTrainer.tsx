@@ -98,6 +98,7 @@ export default function NoteTrainer() {
                     {/**notes_list={[["C4", note_status.NEUTRE], ["D4", note_status.NEUTRE], "Eb4", "F4", "G4", "G#4"]}*/}
                     <Partition 
                       notes_list={liste_note}
+                      show_all_staves={true}
                     />
                 </div>
             </div>

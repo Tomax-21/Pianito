@@ -10,7 +10,7 @@ export const couleur: Record<string, string> = {
 }
 
 
-export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
+export function Partition({notes_list, show_all_staves=false}: {notes_list: Array<Array<string>>, show_all_staves?:boolean}) {
     const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (!containerRef.current) return;
@@ -24,9 +24,12 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
         // Dessin de la portée (x, y, largeur) avec la clé de Sol
         const trebleStave = new Stave(0, 0, 410);
         trebleStave.setEndBarType(BarlineType.END);
+        trebleStave.addClef("treble").setContext(context)
+
 
         const bassStave = new Stave(0, 100, 400)
         bassStave.setEndBarType(BarlineType.END)
+        bassStave.addClef("bass").setContext(context)
 
         const trebleNotes: (StaveNote | GhostNote)[] = []
         const bassNotes: (StaveNote | GhostNote)[] = []
@@ -80,12 +83,16 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
             .joinVoices([bassVoice])
             .format([trebleVoice, bassVoice], 350);
         
+        if (show_all_staves) {
+            trebleStave.draw();
+            bassStave.draw()
+        }
         if (hasRealNoteInTrebleNotesList) {
-            trebleStave.addClef("treble").setContext(context).draw();
+            if (!show_all_staves) trebleStave.draw() //pas besoin de redessiner 2 fois
             trebleVoice.draw(context, trebleStave)
         } 
         if (hasRealNoteInBassNotesList) {
-            bassStave.addClef("bass").setContext(context).draw()
+            if (!show_all_staves) bassStave.draw()
             bassVoice.draw(context, bassStave)
 
         }
