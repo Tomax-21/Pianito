@@ -91,7 +91,11 @@ export default function NoteTrainer() {
       setUseMic(!useMic)
     }
 
-    useAudioPitch(useMic)
+    const handleOnMicroDetectNote = (note:string) => {
+      console.log(note)
+    }
+
+    useAudioPitch(useMic, handleOnMicroDetectNote)
 
 
     
