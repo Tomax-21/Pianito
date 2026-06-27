@@ -27,7 +27,7 @@ export function Partition({notes_list, show_all_staves=false}: {notes_list: Arra
         trebleStave.addClef("treble").setContext(context)
 
 
-        const bassStave = new Stave(0, 100, 400)
+        const bassStave = new Stave(0, 100, 410)
         bassStave.setEndBarType(BarlineType.END)
         bassStave.addClef("bass").setContext(context)
 
