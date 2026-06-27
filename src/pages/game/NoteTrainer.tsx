@@ -12,15 +12,20 @@ const nb_note = 6
 
 export default function NoteTrainer() {
 
-      const [liste_note, set_liste_note] = useState<Array<Array<string>>>(()=> prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[4, 5], enable_bemol: true, enable_diese: true}))) //fct fleché permet d'executer que au lancement
+      const [liste_note, set_liste_note] = useState<Array<Array<string>>>(()=> generateNewList()) //fct fleché permet d'executer que au lancement
       const [currentIndex, setCurrentIndex] = useState<number>(0)
 
       const [showHelp, setShowHelp] = useState<boolean>(false)
 
       function generateNewList() {
         let new_notes: Array<Array<string>>
-        new_notes = prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[4, 5], enable_bemol: true, enable_diese: true}))
-              
+        new_notes = prepareNotesForTrainer(get_multiple_random_note({nb_note:nb_note,octave_range:[2,3,4, 5], enable_bemol: true, enable_diese: true}))
+        return new_notes    
+        
+      }
+
+      function resetNotes() {
+        const new_notes: Array<Array<string>> = generateNewList()
         set_liste_note(new_notes)
         setCurrentIndex(0)
       }
@@ -45,7 +50,7 @@ export default function NoteTrainer() {
           
           if (currentIndex === liste_note.length-1) {
             setTimeout(() => {
-              generateNewList()
+              resetNotes()
 
               //liste_note[currentIndex][1] = note_status.NEUTRE
 
@@ -81,7 +86,7 @@ export default function NoteTrainer() {
     }
 
     const handleRefreshRequested = () => {
-      generateNewList()
+      resetNotes()
     }
     
     return (
@@ -93,6 +98,7 @@ export default function NoteTrainer() {
                     {/**notes_list={[["C4", note_status.NEUTRE], ["D4", note_status.NEUTRE], "Eb4", "F4", "G4", "G#4"]}*/}
                     <Partition 
                       notes_list={liste_note}
+                      show_all_staves={true}
                     />
                 </div>
             </div>

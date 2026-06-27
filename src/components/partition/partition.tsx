@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter, BarlineType } from "vexflow";
+import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter, BarlineType, GhostNote } from "vexflow";
 import { classicNoteToVewflowNote } from "../../utils/note_conversion";
 
 
@@ -10,7 +10,7 @@ export const couleur: Record<string, string> = {
 }
 
 
-export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
+export function Partition({notes_list, show_all_staves=false}: {notes_list: Array<Array<string>>, show_all_staves?:boolean}) {
     const containerRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
         if (!containerRef.current) return;
@@ -18,24 +18,38 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
         containerRef.current.innerHTML = "";
 
         const renderer = new Renderer(containerRef.current, Renderer.Backends.SVG);
-        renderer.resize(430, 110);
+        renderer.resize(430, 220);
         const context = renderer.getContext();
 
         // Dessin de la portée (x, y, largeur) avec la clé de Sol
-        
-        const stave = new Stave(0, 0, 410);
-        stave.setEndBarType(BarlineType.END);
-        stave.addClef("treble").setContext(context).draw();
+        const trebleStave = new Stave(0, 0, 410);
+        trebleStave.setEndBarType(BarlineType.END);
+        trebleStave.addClef("treble").setContext(context)
+
+
+        const bassStave = new Stave(0, 100, 410)
+        bassStave.setEndBarType(BarlineType.END)
+        bassStave.addClef("bass").setContext(context)
+
+        const trebleNotes: (StaveNote | GhostNote)[] = []
+        const bassNotes: (StaveNote | GhostNote)[] = []
+
+        let hasRealNoteInTrebleNotesList:boolean = false
+        let hasRealNoteInBassNotesList:boolean = false
 
         // Création et formatage des notes à la volée
-        const notes = notes_list.map((note_) => {
-            const noteName:string = note_[0]
+        notes_list.map((note_) => {
+            const noteName:string = note_[0] //C4, A#3
             const status:string = note_[1] || "neutre"
+
+            const octave = noteName.slice(-1)
 
             const vfKey = classicNoteToVewflowNote(noteName); // Octave 4 par défaut
             //console.log("note affiché", vfKey)
-            const note = new StaveNote({ keys: [vfKey], duration: "q" });
-            //console.log("bojnour")
+
+            const isTrebleClef = parseInt(octave) >=4
+
+            const note = new StaveNote({ keys: [vfKey], duration: "q", clef: isTrebleClef?"treble":"bass" });
             
             note.setStyle({ fillStyle: couleur[status], strokeStyle: couleur[status] });
 
@@ -43,15 +57,45 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
             if (noteName.includes("#")) note.addModifier(new Accidental("#"), 0);
             if (noteName.includes("b")) note.addModifier(new Accidental("b"), 0);
 
+            if (isTrebleClef) {
+                trebleNotes.push(note);
+                bassNotes.push(new GhostNote({ duration: "q" }));
+                hasRealNoteInTrebleNotesList = true
+
+            } else {
+                bassNotes.push(note);
+                // On met une note invisible (GhostNote) en haut pour maintenir l'alignement horizontal
+                trebleNotes.push(new GhostNote({ duration: "q" }));
+                hasRealNoteInBassNotesList = true
+            }
+
+            
             return note;
         });
 
         // 5. Groupement des notes dans une Voix sans contrainte de mesure (Strict = false)
-        const voice = new Voice().setStrict(false).addTickables(notes);
+        const trebleVoice = new Voice().setStrict(false).addTickables(trebleNotes);
+        const bassVoice = new Voice().setStrict(false).addTickables(bassNotes);
 
         // 6. Alignement automatique des notes sur la portée et dessin
-        new Formatter().joinVoices([voice]).format([voice], 350);
-        voice.draw(context, stave);
+        new Formatter()
+            .joinVoices([trebleVoice])
+            .joinVoices([bassVoice])
+            .format([trebleVoice, bassVoice], 350);
+        
+        if (show_all_staves) {
+            trebleStave.draw();
+            bassStave.draw()
+        }
+        if (hasRealNoteInTrebleNotesList) {
+            if (!show_all_staves) trebleStave.draw() //pas besoin de redessiner 2 fois
+            trebleVoice.draw(context, trebleStave)
+        } 
+        if (hasRealNoteInBassNotesList) {
+            if (!show_all_staves) bassStave.draw()
+            bassVoice.draw(context, bassStave)
+
+        }
 
         // Nettoyage au démontage
         return () => {
