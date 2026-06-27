@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter, BarlineType } from "vexflow";
+import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter, BarlineType, GhostNote } from "vexflow";
 import { classicNoteToVewflowNote } from "../../utils/note_conversion";
 
 
@@ -30,16 +30,22 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
         bassStave.setEndBarType(BarlineType.END)
         bassStave.addClef("bass").setContext(context).draw()
 
+        const trebleNotes: (StaveNote | GhostNote)[] = []
+        const bassNotes: (StaveNote | GhostNote)[] = []
 
         // Création et formatage des notes à la volée
-        const notes = notes_list.map((note_) => {
-            const noteName:string = note_[0]
+        notes_list.map((note_) => {
+            const noteName:string = note_[0] //C4, A#3
             const status:string = note_[1] || "neutre"
+
+            const octave = noteName.slice(-1)
 
             const vfKey = classicNoteToVewflowNote(noteName); // Octave 4 par défaut
             //console.log("note affiché", vfKey)
-            const note = new StaveNote({ keys: [vfKey], duration: "q" });
-            //console.log("bojnour")
+
+            const isTrebleClef = parseInt(octave) >=4
+
+            const note = new StaveNote({ keys: [vfKey], duration: "q", clef: isTrebleClef?"treble":"bass" });
             
             note.setStyle({ fillStyle: couleur[status], strokeStyle: couleur[status] });
 
@@ -47,15 +53,33 @@ export function Partition({notes_list}: {notes_list: Array<Array<string>>}) {
             if (noteName.includes("#")) note.addModifier(new Accidental("#"), 0);
             if (noteName.includes("b")) note.addModifier(new Accidental("b"), 0);
 
+            if (isTrebleClef) {
+                trebleNotes.push(note);
+                bassNotes.push(new GhostNote({ duration: "q" }));
+
+            } else {
+                bassNotes.push(note);
+                // On met une note invisible (GhostNote) en haut pour maintenir l'alignement horizontal
+                trebleNotes.push(new GhostNote({ duration: "q" }));
+
+            }
+
+            
             return note;
         });
 
         // 5. Groupement des notes dans une Voix sans contrainte de mesure (Strict = false)
-        const voice = new Voice().setStrict(false).addTickables(notes);
+        const trebleVoice = new Voice().setStrict(false).addTickables(trebleNotes);
+        const bassVoice = new Voice().setStrict(false).addTickables(bassNotes);
 
         // 6. Alignement automatique des notes sur la portée et dessin
-        new Formatter().joinVoices([voice]).format([voice], 350);
-        voice.draw(context, trebleStave);
+        new Formatter()
+            .joinVoices([trebleVoice])
+            .joinVoices([bassVoice])
+            .format([trebleVoice, bassVoice], 350);
+        
+        trebleVoice.draw(context, trebleStave);
+        bassVoice.draw(context, bassStave);
 
         // Nettoyage au démontage
         return () => {
