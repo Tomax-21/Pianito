@@ -38,10 +38,10 @@ export default function NoteTrainer() {
       const playNote = (noteName: string) => {
         SoundPlayer(noteName)
         handlePlayedNote(noteName)
+        setShowHelp(false)
 
       }
       const handlePlayedNote = (noteName: string) => {
-        setShowHelp(false)
 
         if (liste_note.length === 0) return
 
