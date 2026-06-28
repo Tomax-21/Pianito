@@ -13,6 +13,12 @@
     box-sizing: border-box;
 
     display: flex;
+    justify-content:space-between;
+    align-items: center;
+    gap: 16px;
+}
+.piano-frame .right-part {
+    display: flex;
     justify-content: flex-end;
     align-items: center;
     gap: 16px;
@@ -27,6 +33,9 @@
 }
 .piano .icon.help-icon {
     margin-right: 32px;
+}
+.piano .icon.mic-icon{
+    margin-left: 32px;
 }
 .piano-keyboard {
     width: 100dvw;
