@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter, BarlineType, GhostNote } from "vexflow";
+import { Renderer, Stave, StaveNote, Accidental, Voice, Formatter, BarlineType, GhostNote, StaveConnector } from "vexflow";
 import { classicNoteToVewflowNote } from "../../utils/note_conversion";
 
 
@@ -18,16 +18,16 @@ export function Partition({notes_list, show_all_staves=false}: {notes_list: Arra
         containerRef.current.innerHTML = "";
 
         const renderer = new Renderer(containerRef.current, Renderer.Backends.SVG);
-        renderer.resize(430, 220);
+        renderer.resize(450, 220);
         const context = renderer.getContext();
 
         // Dessin de la portée (x, y, largeur) avec la clé de Sol
-        const trebleStave = new Stave(0, 0, 410);
+        const trebleStave = new Stave(15, 0, 420);
         trebleStave.setEndBarType(BarlineType.END);
         trebleStave.addClef("treble").setContext(context)
 
 
-        const bassStave = new Stave(0, 100, 410)
+        const bassStave = new Stave(15, 100, 420)
         bassStave.setEndBarType(BarlineType.END)
         bassStave.addClef("bass").setContext(context)
 
@@ -94,7 +94,20 @@ export function Partition({notes_list, show_all_staves=false}: {notes_list: Arra
         if (hasRealNoteInBassNotesList) {
             if (!show_all_staves) bassStave.draw()
             bassVoice.draw(context, bassStave)
+        }
 
+        if (show_all_staves || (hasRealNoteInTrebleNotesList && hasRealNoteInBassNotesList)) {
+            const brace = new StaveConnector(trebleStave, bassStave)
+            brace.setType(StaveConnector.type.BRACE)
+            brace.setContext(context).draw()
+
+            const startline = new StaveConnector(trebleStave, bassStave)
+            startline.setType(StaveConnector.type.SINGLE)
+            startline.setContext(context).draw()
+
+            const lineEnd = new StaveConnector(trebleStave, bassStave)
+            lineEnd.setType(StaveConnector.type.BOLD_DOUBLE_RIGHT)
+            lineEnd.setContext(context).draw()
         }
 
         // Nettoyage au démontage
