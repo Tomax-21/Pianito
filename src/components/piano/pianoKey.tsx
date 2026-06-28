@@ -4,13 +4,13 @@ import { piano_key_color, type PianoKeyProps } from "./piano_types";
 
 
 
-export function PianoKey({name, color,active=false, target_note, onClick}: PianoKeyProps) {
+export function PianoKey({name, color,active=false, target_note,show_keys_name, onClick}: PianoKeyProps) {
     
     if (name && target_note) {
         active = areEnharmonic(capitalize(name), capitalize(target_note))
     }
 
-    
+    console.log(show_keys_name)
     return (
         <button onClick={onClick} className={`key ${color} ${active ? 'active' : ''}`}>
             <p>{color !== piano_key_color.BLACK ? name : ''}</p>

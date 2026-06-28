@@ -35,6 +35,7 @@ export function Piano({onNotePlayed, onHelpRequested, onRefreshRequested,onUseAu
                         is_last_octave={num===8}
                         onNoteTriggered={onNotePlayed}
                         target_note={target_note}
+                        show_keys_name={showKeysName}
                     />
                 ))}
             </div>
