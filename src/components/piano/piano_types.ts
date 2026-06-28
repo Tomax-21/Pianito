@@ -8,6 +8,12 @@ export enum note_status {
     CORRECT = "correct",
 }
 
+export enum keys_name_status {
+    SHOW = "show",
+    HIDE = "hide",
+    SHOWONLYDO = "showonlydo"
+}
+
 export type piano_key_type = {
     name? : string,
     color : piano_key_color,
@@ -45,7 +51,9 @@ export type PianoProps = {
 
 export type PianoFrameProps = {
     isMicroUsed: boolean
+    showKeysName: keys_name_status
     onHelpButtonClick: () => void
     onRefreshButtonClick: () => void
     onMicButtonClick: () => void
+    onShowKeyNameButtonClick: () => void
 }
