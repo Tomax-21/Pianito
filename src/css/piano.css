@@ -32,13 +32,14 @@
     color: #EFEFEF;
     margin: 0 4px;
     cursor: pointer;
-    border: solid 1px #717171;
-    padding: 4px 8px;
+    /*border: solid 1px #717171;
+    padding: 4px 12px;*/
     border-radius: 4px;
 }
+/*
 .piano .icon:hover {
     background-color: #1a1a1a;
-}
+}*/
 .piano .part.right-part {
     margin-right: 32px;
 }
