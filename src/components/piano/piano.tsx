@@ -33,7 +33,7 @@ export function Piano({onNotePlayed, onHelpRequested, onRefreshRequested,onUseAu
     console.log(showKeybord)
 
     return (
-        <div className="piano">
+        <div className={`piano  ${showKeybord ? 'keyboard-visible' : 'keyboard-hidden'}`}>
 
             <PianoFrame showKeyboard={showKeybord} onShowKeyboardButtonClick={handleShowKeyboardButtonClicked} showKeysName={showKeysName} onShowKeyNameButtonClick={handleShowKeyNameButtonClicked} isMicroUsed={isMicroUsed} onHelpButtonClick={onHelpRequested} onRefreshButtonClick={onRefreshRequested} onMicButtonClick={onUseAudioPitchRequested}/>
 
