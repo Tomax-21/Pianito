@@ -17,14 +17,23 @@ function rms(buffer: Float32Array): number {
 
 export function useAudioPitch(isListening: boolean, onNoteDetected: (note: string) => void) {
 
-    if (isListening)
-    onNoteDetected("coucou")
+    const audioContextRef = useRef<AudioContext | null>(null);
+    const analyserRef = useRef<AnalyserNode | null>(null);
+    const streamRef = useRef<MediaStream | null>(null);
+    const animFrameRef = useRef<number | null>(null);
+    const onNoteDetectedRef = useRef(onNoteDetected);
+
+    useEffect(() => {
+        onNoteDetectedRef.current = onNoteDetected;
+    }, [onNoteDetected]);
 
 
     useEffect(()=> {
         if (!isListening) {
             return
         }
+
+        let cancelled = false
    
 
         async function start() {
@@ -37,19 +46,52 @@ export function useAudioPitch(isListening: boolean, onNoteDetected: (note: strin
                     }
                 })
 
+                if (cancelled) {
+                    stream.getTracks().forEach(t => t.stop())
+                    return
+                }
+
                 const audioContext = new AudioContext();
+                audioContextRef.current = audioContext
 
                 const source = audioContext.createMediaStreamSource(stream);
 
                 const analyser = audioContext.createAnalyser();
+                analyser.fftSize = BUFFER_SIZE
+                analyser.smoothingTimeConstant = 0 //pas de smoothing, on recupere la val instant
+                
                 source.connect(analyser);
 
-                const buffer = new Float32Array(2048);
-            } catch {
+                const buffer = new Float32Array(BUFFER_SIZE);
 
+               
+                    
+                function detect() {
+                    if (!analyserRef.current) return
+
+                    analyserRef.current.getFloatTimeDomainData(buffer)
+
+                    //traite que le signal est assez fort
+                    if (rms(buffer) > SILENCE_THRESHOLD) {
+                        console.log(buffer)
+                    }
+
+                    animFrameRef.current = requestAnimationFrame(detect);
+
+
+                }
+                detect();
+
+
+            } catch (err) {
+                console.log("err acces micro")
             }
         }
         start()
+
+        return () => {
+            cancelled = true
+        }
     }, [isListening])
     
 
