@@ -93,6 +93,8 @@ export default function NoteTrainer() {
 
     const handleOnMicroDetectNote = (note:string) => {
       console.log(note)
+      handlePlayedNote(note)
+
     }
 
     useAudioPitch(useMic, handleOnMicroDetectNote)
