@@ -51,7 +51,7 @@
     height: 30dvh;
     display: flex;
     flex-direction: row;
-    justify-content: baseline;
+    justify-content: flex-start;
     overflow: hidden; 
     box-sizing: border-box;
     gap: 0.5px;
@@ -71,7 +71,7 @@
     position: relative; 
     flex: 1;
     max-width: 32px;
-    min-width: 0;
+    min-width: 18px;
     height: 100%;
 
 }
@@ -107,8 +107,7 @@
     background-color: #222222;
     color: #C7C7C7;
     z-index: 10;
-    clip-path: polygon(0 0, 100% 0, 90% 85%, 100% 100%, 0 100%, 10% 85%);
-
+  
 }
 
 .key.white:hover {
@@ -132,3 +131,21 @@
     background-color: #b88282;
 }
 
+@media (min-width: 1200px) {
+    .key.black {
+        clip-path: polygon(0 0, 100% 0, 90% 85%, 100% 100%, 0 100%, 10% 85%);
+    }
+}
+
+@media (max-width: 1024px) {
+
+
+    .key p {
+        font-size: 10px;
+    }
+}
+@media (max-width: 800px) {
+    .key p {
+        font-size: 8px;
+    }
+}
