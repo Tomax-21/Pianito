@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 
 const BUFFER_SIZE = 2048;
 // Seuil de confiance YIN : en dessous = note détectée, au-dessus = silence/bruit
-const YIN_THRESHOLD = 0.15;
+export const YIN_THRESHOLD = 0.15;
 const SILENCE_THRESHOLD = 0.01;
 
 
