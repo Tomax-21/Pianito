@@ -7,7 +7,7 @@ import { Piano } from "../../components/piano/piano"
 import { note_status } from "../../components/piano/piano_types"
 import { prepareNotesForTrainer } from "../../utils/note_conversion"
 import { useAudioPitch } from "../../utils/hooks/useAudioPitch"
-
+import "../../css/notetrainer.css"
 
 const nb_note = 6
 
@@ -118,10 +118,14 @@ export default function NoteTrainer() {
 
                 <div className="partition-box">
                     {/**notes_list={[["C4", note_status.NEUTRE], ["D4", note_status.NEUTRE], "Eb4", "F4", "G4", "G#4"]}*/}
+                    <div className="partitions">
+
+                    
                     <Partition 
                       notes_list={liste_note}
                       show_all_staves={true}
                     />
+                    </div>
                 </div>
             </div>
             
