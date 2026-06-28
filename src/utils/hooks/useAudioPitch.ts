@@ -32,6 +32,7 @@ export function useAudioPitch(isListening: boolean, onNoteDetected: (note: strin
 
     useEffect(()=> {
         if (!isListening) {
+            cleanup()
             return
         }
 
@@ -100,8 +101,24 @@ export function useAudioPitch(isListening: boolean, onNoteDetected: (note: strin
 
         return () => {
             cancelled = true
+            cleanup()
         }
     }, [isListening])
     
 
+    function cleanup() {
+        if (animFrameRef.current !== null) {
+            cancelAnimationFrame(animFrameRef.current)
+            animFrameRef.current = null
+        }
+        if (streamRef.current) {
+            streamRef.current.getTracks().forEach(t => t.stop())
+            streamRef.current = null
+        }
+        if (audioContextRef.current) {
+            audioContextRef.current.close()
+            audioContextRef.current = null
+        }
+        analyserRef.current = null
+    }
 }
