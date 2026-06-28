@@ -97,9 +97,14 @@ export function Partition({notes_list, show_all_staves=false}: {notes_list: Arra
         }
 
         if (show_all_staves || (hasRealNoteInTrebleNotesList && hasRealNoteInBassNotesList)) {
-            const brace = new StaveConnector(trebleStave, bassStave);
-            brace.setType(StaveConnector.type.BRACE);
-            brace.setContext(context).draw();
+            const brace = new StaveConnector(trebleStave, bassStave)
+            brace.setType(StaveConnector.type.BRACE)
+            brace.setContext(context).draw()
+
+            const startline = new StaveConnector(trebleStave, bassStave)
+            startline.setType(StaveConnector.type.SINGLE)
+            startline.setContext(context).draw()
+
         }
 
         // Nettoyage au démontage
