@@ -7,8 +7,8 @@ const BUFFER_SIZE = 2048;
 export const YIN_THRESHOLD = 0.15;
 const SILENCE_THRESHOLD = 0.01;
 
-const WINDOW_SIZE = 30;      // nb de note dans la fenêtre glissante
-const MIN_VALID = 24;
+const WINDOW_SIZE = 20;      // nb de note dans la fenêtre glissante //30
+const MIN_VALID = 14;                                                   //24
 
 function rms(buffer: Float32Array): number {
     let sum = 0
