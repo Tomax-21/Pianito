@@ -10,7 +10,9 @@ export function PianoFrame({onHelpButtonClick, onRefreshButtonClick, onMicButton
             ) : showKeysName === keys_name_status.HIDE ? (
                 <CaptionsOff className="icon" onClick={onShowKeyNameButtonClick}/>
             ) : (
-                <></>
+                <div className="icon show-only-do-icon" onClick={onShowKeyNameButtonClick}>
+                    <p>Do</p>
+                </div>
             )}
 
             {isMicroUsed ? (

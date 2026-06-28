@@ -12,6 +12,14 @@ export function Piano({onNotePlayed, onHelpRequested, onRefreshRequested,onUseAu
 
     const handleShowKeyNameButtonClicked= () => {
         console.log(showKeysName)
+        if (showKeysName === keys_name_status.SHOW) {
+            setShowKeysName(keys_name_status.HIDE)
+        }
+        else if (showKeysName === keys_name_status.HIDE) {
+            setShowKeysName(keys_name_status.SHOWONLYDO)
+        } else {
+            setShowKeysName(keys_name_status.SHOW)
+        }
     }
     return (
         <div className="piano">
