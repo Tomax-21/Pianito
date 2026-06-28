@@ -8,7 +8,7 @@
 .piano-frame {
     height: 8dvh;
     width: 100%;
-    background-color: #222222;
+    background-color: #121212;
     border: solid 1px #C4C4C4;
     border-bottom:solid 2px #b5c2ff ;
     border-radius: 4px 4px 0 0;
@@ -35,6 +35,9 @@
     border: solid 1px #717171;
     padding: 4px 8px;
     border-radius: 4px;
+}
+.piano .icon:hover {
+    background-color: #1a1a1a;
 }
 .piano .part.right-part {
     margin-right: 32px;
