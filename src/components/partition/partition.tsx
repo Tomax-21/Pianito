@@ -105,6 +105,9 @@ export function Partition({notes_list, show_all_staves=false}: {notes_list: Arra
             startline.setType(StaveConnector.type.SINGLE)
             startline.setContext(context).draw()
 
+            const lineEnd = new StaveConnector(trebleStave, bassStave)
+            lineEnd.setType(StaveConnector.type.BOLD_DOUBLE_RIGHT)
+            lineEnd.setContext(context).draw()
         }
 
         // Nettoyage au démontage
