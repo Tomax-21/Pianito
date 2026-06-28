@@ -101,8 +101,8 @@
 .key.black {
     position: absolute;
     top: 0;
-    right: -13px;
-    width: 26px;
+    right: -35%;
+    width: 70%;
     height: 60%;
     background-color: #222222;
     color: #C7C7C7;
@@ -131,3 +131,4 @@
 .key.black.active {
     background-color: #b88282;
 }
+
