@@ -65,7 +65,9 @@ export function useAudioPitch(isListening: boolean, onNoteDetected: (note: strin
                 const analyser = audioContext.createAnalyser();
                 analyser.fftSize = BUFFER_SIZE
                 analyser.smoothingTimeConstant = 0 //pas de smoothing, on recupere la val instant
-                
+                analyserRef.current = analyser
+
+
                 source.connect(analyser);
 
                 const buffer = new Float32Array(BUFFER_SIZE);
