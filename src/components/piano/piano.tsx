@@ -8,6 +8,8 @@ export function Piano({onNotePlayed, onHelpRequested, onRefreshRequested,onUseAu
     const octaves = [0,1,2,3,4,5,6,7,8]
 
     const [showKeysName, setShowKeysName] = useState<keys_name_status>(keys_name_status.SHOW)
+
+    const [showKeybord, setShowKeyboard] = useState<boolean>(true)
     
 
     const handleShowKeyNameButtonClicked= () => {
@@ -20,10 +22,20 @@ export function Piano({onNotePlayed, onHelpRequested, onRefreshRequested,onUseAu
             setShowKeysName(keys_name_status.SHOW)
         }
     }
-    return (
-        <div className="piano">
+    function toogleShowKeyboard() {
+        setShowKeyboard(!showKeybord)
+    }
 
-            <PianoFrame showKeysName={showKeysName} onShowKeyNameButtonClick={handleShowKeyNameButtonClicked} isMicroUsed={isMicroUsed} onHelpButtonClick={onHelpRequested} onRefreshButtonClick={onRefreshRequested} onMicButtonClick={onUseAudioPitchRequested}/>
+    const handleShowKeyboardButtonClicked = () => {
+        toogleShowKeyboard()
+    }
+
+    console.log(showKeybord)
+
+    return (
+        <div className={`piano  ${showKeybord ? 'keyboard-visible' : 'keyboard-hidden'}`}>
+
+            <PianoFrame showKeyboard={showKeybord} onShowKeyboardButtonClick={handleShowKeyboardButtonClicked} showKeysName={showKeysName} onShowKeyNameButtonClick={handleShowKeyNameButtonClicked} isMicroUsed={isMicroUsed} onHelpButtonClick={onHelpRequested} onRefreshButtonClick={onRefreshRequested} onMicButtonClick={onUseAudioPitchRequested}/>
 
             <div className="piano-keyboard">
                 {octaves.map((num) => (

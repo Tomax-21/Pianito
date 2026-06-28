@@ -35,9 +35,13 @@ export default function NoteTrainer() {
       }
 
 
-      const handlePlayedNote = (noteName: string) => {
+      const playNote = (noteName: string) => {
         SoundPlayer(noteName)
+        handlePlayedNote(noteName)
         setShowHelp(false)
+
+      }
+      const handlePlayedNote = (noteName: string) => {
 
         if (liste_note.length === 0) return
 
@@ -123,7 +127,7 @@ export default function NoteTrainer() {
             
                 
             <Piano 
-                onNotePlayed={handlePlayedNote} 
+                onNotePlayed={playNote} 
                 onHelpRequested={handleHelpRequested}
                 onRefreshRequested={handleRefreshRequested}
                 onUseAudioPitchRequested={handleUseAudioPitchRequested}

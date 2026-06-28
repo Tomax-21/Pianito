@@ -56,8 +56,10 @@ export type PianoProps = {
 export type PianoFrameProps = {
     isMicroUsed: boolean
     showKeysName: keys_name_status
+    showKeyboard: boolean
     onHelpButtonClick: () => void
     onRefreshButtonClick: () => void
     onMicButtonClick: () => void
     onShowKeyNameButtonClick: () => void
+    onShowKeyboardButtonClick: () => void
 }

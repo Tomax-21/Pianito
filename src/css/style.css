@@ -22,5 +22,7 @@ body {
 .piano-partition-page {
     display: flex;
     height: 100dvh;
+    width: 100dvw;
     flex-direction: column;
+    overflow: hidden;
 }
