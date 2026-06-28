@@ -2,13 +2,13 @@ import { Captions, CaptionsOff, ChevronDown, HelpCircle, Mic, MicOff, RefreshCw 
 import { keys_name_status, type PianoFrameProps } from "./piano_types";
 import ShowOnlyDoIcon from "../../assets/icons/show-only-do-keys.svg";
 
-export function PianoFrame({onHelpButtonClick, onRefreshButtonClick, onMicButtonClick, onShowKeyNameButtonClick, isMicroUsed, showKeysName}: PianoFrameProps) {
+export function PianoFrame({onHelpButtonClick, onRefreshButtonClick, onMicButtonClick, onShowKeyNameButtonClick,onShowKeyboardButtonClick, isMicroUsed, showKeysName, showKeyboard}: PianoFrameProps) {
     return (
-        <div className={`piano-frame ${isMicroUsed ? 'use-mic':''}`}>
+        <div className={`piano-frame ${isMicroUsed ? 'use-mic':''}`}> 
 
             <div className="part left-part">
-                <ChevronDown className="icon hide-icon"/>
-                
+                <ChevronDown className="icon hide-icon" onClick={onShowKeyboardButtonClick}/>
+
                 {isMicroUsed ? (
                 <Mic className="icon mic-icon" onClick={onMicButtonClick}/>
 
