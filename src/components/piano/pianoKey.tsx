@@ -10,7 +10,6 @@ export function PianoKey({name, color,active=false, target_note,show_keys_name, 
         active = areEnharmonic(capitalize(name), capitalize(target_note))
     }
 
-    console.log(show_keys_name)
     return (
         <button onClick={onClick} className={`key ${color} ${active ? 'active' : ''}`}>
             <p>{
