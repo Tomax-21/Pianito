@@ -1,4 +1,4 @@
-import { Captions, CaptionsOff, HelpCircle, Mic, MicOff, RefreshCw } from "lucide-react";
+import { Captions, CaptionsOff, ChevronDown, HelpCircle, Mic, MicOff, RefreshCw } from "lucide-react";
 import { keys_name_status, type PianoFrameProps } from "./piano_types";
 import ShowOnlyDoIcon from "../../assets/icons/show-only-do-keys.svg";
 
@@ -6,14 +6,19 @@ export function PianoFrame({onHelpButtonClick, onRefreshButtonClick, onMicButton
     return (
         <div className={`piano-frame ${isMicroUsed ? 'use-mic':''}`}>
 
-            {isMicroUsed ? (
+            <div className="part left-part">
+                <ChevronDown className="icon hide-icon"/>
+                
+                {isMicroUsed ? (
                 <Mic className="icon mic-icon" onClick={onMicButtonClick}/>
 
-            ): (
-                <MicOff className="icon mic-icon" onClick={onMicButtonClick}/>
-            )}
+                ): (
+                    <MicOff className="icon mic-icon" onClick={onMicButtonClick}/>
+                )}
+            </div>
 
-            <div className="right-part">
+
+            <div className="part right-part">
                 {showKeysName === keys_name_status.SHOW ? (
                     <Captions className="icon show-key-name" onClick={onShowKeyNameButtonClick}/>
                 ) : showKeysName === keys_name_status.HIDE ? (

@@ -17,7 +17,7 @@
     align-items: center;
     gap: 16px;
 }
-.piano-frame .right-part {
+.piano-frame .part {
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -31,10 +31,10 @@
     margin: 0 4px;
     cursor: pointer;
 }
-.piano .icon.help-icon {
+.piano .part.right-part {
     margin-right: 32px;
 }
-.piano .icon.mic-icon{
+.piano .part.left-part {
     margin-left: 32px;
 }
 .piano-keyboard {
