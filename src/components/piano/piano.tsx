@@ -22,9 +22,12 @@ export function Piano({onNotePlayed, onHelpRequested, onRefreshRequested,onUseAu
             setShowKeysName(keys_name_status.SHOW)
         }
     }
+    function toogleShowKeyboard() {
+        setShowKeyboard(!showKeybord)
+    }
 
     const handleShowKeyboardButtonClicked = () => {
-        setShowKeyboard(!showKeybord)
+        toogleShowKeyboard()
     }
 
     console.log(showKeybord)
