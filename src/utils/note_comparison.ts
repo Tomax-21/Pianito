@@ -42,11 +42,27 @@ export function areEnharmonic(note1:string, note2:string) {
     const nameB = note2.slice(0,-1)
     const octaveB = note2.slice(-1)
 
-
     if (octaveA !== octaveB) { //le cas particulier valide si 2 octaves sont differents
-        if (!(nameA === "B#" && nameB ==="C") && !(nameB === "B#" && nameA==="C") ) {
-            return false
+        // B#4 = C5 : octave de C doit être octave de B# + 1
+        if (nameA === "B#" && nameB === "C") {
+            return parseInt(octaveB) === parseInt(octaveA) + 1;
         }
+        if (nameB === "B#" && nameA === "C") {
+            return parseInt(octaveA) === parseInt(octaveB) + 1;
+        }
+        // Cb5 = B4 : octave de B doit être octave de Cb - 1
+        if (nameA === "Cb" && nameB === "B") {
+            return parseInt(octaveB) === parseInt(octaveA) - 1;
+        }
+        if (nameB === "Cb" && nameA === "B") {
+            return parseInt(octaveA) === parseInt(octaveB) - 1;
+        }
+        return false;
+    } else {
+        //si on a le meme octave : 
+        //B# et Cb n'ont pas d'equivalent de ce meme octave, c'est forcement dans un different
+        if (nameA === "B#" || nameB === "B#") return false;
+        if (nameA === "Cb" || nameB === "Cb") return false;
     }
 
 
