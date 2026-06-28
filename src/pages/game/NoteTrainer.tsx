@@ -6,13 +6,17 @@ import { Partition } from "../../components/partition/partition"
 import { Piano } from "../../components/piano/piano"
 import { note_status } from "../../components/piano/piano_types"
 import { prepareNotesForTrainer } from "../../utils/note_conversion"
+import { useAudioPitch } from "../../utils/hooks/useAudioPitch"
 
 
 const nb_note = 6
 
 export default function NoteTrainer() {
 
+      const [useMic, setUseMic] = useState<boolean>(false)
+
       const [liste_note, set_liste_note] = useState<Array<Array<string>>>(()=> generateNewList()) //fct fleché permet d'executer que au lancement
+
       const [currentIndex, setCurrentIndex] = useState<number>(0)
 
       const [showHelp, setShowHelp] = useState<boolean>(false)
@@ -88,6 +92,20 @@ export default function NoteTrainer() {
     const handleRefreshRequested = () => {
       resetNotes()
     }
+
+    const handleUseAudioPitchRequested = () => {
+      setUseMic(!useMic)
+    }
+
+    const handleOnMicroDetectNote = (note:string) => {
+      console.log(note)
+      handlePlayedNote(note)
+
+    }
+
+    useAudioPitch(useMic, handleOnMicroDetectNote)
+
+
     
     return (
          <div className="piano-partition-page">
@@ -108,6 +126,8 @@ export default function NoteTrainer() {
                 onNotePlayed={handlePlayedNote} 
                 onHelpRequested={handleHelpRequested}
                 onRefreshRequested={handleRefreshRequested}
+                onUseAudioPitchRequested={handleUseAudioPitchRequested}
+                isMicroUsed={useMic}
                 target_note={showHelp ? liste_note[currentIndex][0] : null}
             />
       </div>

@@ -17,8 +17,8 @@
     align-items: center;
     gap: 16px;
 }
-.piano-frame.listen-music {
-    border-bottom:solid 2px #ffb5b5
+.piano-frame.use-mic {
+    border-bottom:solid 2px #bcffb5
 }
 .piano .icon {
     color: #EFEFEF;
