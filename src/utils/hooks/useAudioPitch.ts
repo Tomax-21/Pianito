@@ -1,13 +1,14 @@
 import { useEffect, useRef } from "react";
 import { yin } from "../yin";
-import { frequencyToNoteName } from "../note_detector";
+import { frequencyToNoteName, getMostReccurentNoteInList } from "../note_detector";
 
 const BUFFER_SIZE = 2048;
 // Seuil de confiance YIN : en dessous = note détectée, au-dessus = silence/bruit
 export const YIN_THRESHOLD = 0.15;
 const SILENCE_THRESHOLD = 0.01;
 
-
+const WINDOW_SIZE = 30;      // nb de note dans la fenêtre glissante
+const MIN_VALID = 24;
 
 function rms(buffer: Float32Array): number {
     let sum = 0
@@ -74,6 +75,10 @@ export function useAudioPitch(isListening: boolean, onNoteDetected: (note: strin
 
                
                     
+                let noteWindow: string[] = [];
+                let lastNote = ""; // servira a eviter d'envoyer la meme note en boucle 
+                // car si 41 C4, si 42 C4 : renvoie puis 43 C4 : renvoie, ...
+
                 function detect() {
                     if (!analyserRef.current) return
 
@@ -82,10 +87,31 @@ export function useAudioPitch(isListening: boolean, onNoteDetected: (note: strin
                     //traite que le signal est assez fort
                     if (rms(buffer) > SILENCE_THRESHOLD) {
                         const frequency = yin(buffer, audioContext.sampleRate);
+                        
                         if (frequency > 0) {
                             const note = frequencyToNoteName(frequency);
-                            if (note) onNoteDetectedRef.current(note);
+                            if (note) {
+                                noteWindow.push(note)
+
+                                if (noteWindow.length > WINDOW_SIZE) noteWindow.shift()
+
+                                let winner = getMostReccurentNoteInList(noteWindow)
+                                let winnerNote = winner.note
+                                let winnerCount = winner.count
+
+                                if (winnerCount >=MIN_VALID && winnerNote !== lastNote) {
+                                    lastNote = winnerNote
+                                    onNoteDetectedRef.current(winnerNote)
+                                }
+
+                            
+                            }
+                        } else {
+                            noteWindow = []
                         }
+                    } else {
+                        noteWindow = []
+                        lastNote = ""
                     }
 
                     animFrameRef.current = requestAnimationFrame(detect);

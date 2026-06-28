@@ -20,3 +20,31 @@ export function frequencyToNoteName(frequency: number): string {
 
 }
 
+function getNoteOccurenceInList(notes: string[]): Record<string, number>{
+    const counts: Record<string, number> = {}
+    for (const note of notes) {
+        if (counts[note] === undefined) {
+            counts[note] = 0
+        }
+        counts[note] = counts[note] + 1
+    }
+
+    return counts
+}
+
+function getMostReccurentNoteInRecord(counts:Record<string, number>) {
+    let winnerNote = "";
+    let winnerCount = 0;
+    for (const note in counts) {
+        if (counts[note] > winnerCount) {
+            winnerCount = counts[note];
+            winnerNote = note;
+        }
+    }
+
+    return {note: winnerNote, count: winnerCount}
+}
+
+export function getMostReccurentNoteInList(notes:string[]) {
+    return getMostReccurentNoteInRecord(getNoteOccurenceInList(notes))
+}
