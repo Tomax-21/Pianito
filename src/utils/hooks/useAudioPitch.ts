@@ -1,4 +1,6 @@
 import { useEffect, useRef } from "react";
+import { yin } from "../yin";
+import { frequencyToNoteName } from "../note_detector";
 
 const BUFFER_SIZE = 2048;
 // Seuil de confiance YIN : en dessous = note détectée, au-dessus = silence/bruit
@@ -51,6 +53,9 @@ export function useAudioPitch(isListening: boolean, onNoteDetected: (note: strin
                     return
                 }
 
+                streamRef.current = stream;
+
+
                 const audioContext = new AudioContext();
                 audioContextRef.current = audioContext
 
@@ -73,7 +78,11 @@ export function useAudioPitch(isListening: boolean, onNoteDetected: (note: strin
 
                     //traite que le signal est assez fort
                     if (rms(buffer) > SILENCE_THRESHOLD) {
-                        console.log(buffer)
+                        const frequency = yin(buffer, audioContext.sampleRate);
+                        if (frequency > 0) {
+                            const note = frequencyToNoteName(frequency);
+                            if (note) onNoteDetectedRef.current(note);
+                        }
                     }
 
                     animFrameRef.current = requestAnimationFrame(detect);
